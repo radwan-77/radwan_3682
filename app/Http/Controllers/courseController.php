@@ -12,8 +12,8 @@ class courseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
-        return response()->json(["data" => $courses]);
+        $course = Course::all();
+        return response()->json(["data" => $course]);
     }
 
     /**
@@ -28,7 +28,7 @@ class courseController extends Controller
 
         ]);
         Course::create($validated);
-        return response()->json(["message" => "Course created successfully"]);
+        return response()->json(["data" => $validated, "message" => "Course created successfully"]);
     }
 
     /**
@@ -53,8 +53,7 @@ class courseController extends Controller
         ]);
         $course = Course::findOrFail($id);
         $course->update($validated);
-        return response()->json(["message" => "Course updated successfully"]);
-
+        return response()->json(["data" => $validated,  "message" => "Course updated successfully"]);
     }
 
     /**
