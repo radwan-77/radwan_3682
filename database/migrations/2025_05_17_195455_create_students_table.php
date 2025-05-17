@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("password");
             $table->string("imgUrl")->nullable();
             $table->boolean("isActive")->default(1);
-            $table->boolean("isGraduated")->default;
+            $table->boolean("isGraduated")->default(0);
             $table->boolean("isDismissed")->default(0);
             $table->timestamps();
         });
