@@ -36,13 +36,9 @@ class studentController extends Controller
             $image = $request->file("image");
             $path = $image->store("student", "public");
             $studentdata["imgUrl"] = Storage::url($path);
-
-            // $imageName = time() . "_" . $image->getClientOriginalName();
-            // $image->move(public_path("images"), $imageName);
-            // $studentdata["imgUrl"] = "images/" . $imageName;
         }
         Student::create($studentdata);
-        return response()->json(["data" => $studentdata, "message" => "Student created successfully"]);
+        return response()->json(["message" => "Student created successfully"]);
     }
 
     /**
@@ -80,7 +76,7 @@ class studentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function dismissed(string $id)
     {
         $student = Student::findOrFail($id);
         $student->isActive = 0;
@@ -90,11 +86,22 @@ class studentController extends Controller
     }
     public function graduate(string $id)
     {
+        if ($student = Student::findOrFail($id)->isDismissed == 1) {
+            return response()->json(["message" => "Student is already dismissed", "status" => 400]);
+        }
         $student = Student::findOrFail($id);
         $student->isActive = 0;
         $student->isGraduated = 1;
         $student->save();
         return response()->json(["message" => "Student is graduated successfully"]);
     }
-    // dismissed
+
+    public function reActivate(string $id)
+    {
+        $student = Student::findOrFail($id);
+        $student->isActive = 1;
+        $student->isDismissed = 0;
+        $student->save();
+        return response()->json(["message" => "Student is reactivated successfully"]);
+    }
 }
