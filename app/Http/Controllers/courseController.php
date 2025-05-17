@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class courseController extends Controller
@@ -11,7 +12,8 @@ class courseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+        return response()->json(["data" => $courses]);
     }
 
     /**
@@ -19,7 +21,14 @@ class courseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "name" => ["required", "string"],
+            "symbol" => ["required", "unique:courses"],
+            "mark" => ["required", "numeric"],
+
+        ]);
+        Course::create($validated);
+        return response()->json(["message" => "Course created successfully"]);
     }
 
     /**
@@ -27,7 +36,8 @@ class courseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $course = Course::findOrFail($id);
+        return response()->json(["data" => $course]);
     }
 
     /**
@@ -35,7 +45,16 @@ class courseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            "name" => ["required", "string"],
+            "symbol" => ["required", "unique:courses"],
+            "mark" => ["required", "numeric"],
+
+        ]);
+        $course = Course::findOrFail($id);
+        $course->update($validated);
+        return response()->json(["message" => "Course updated successfully"]);
+
     }
 
     /**
@@ -43,6 +62,8 @@ class courseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $course = Course::findOrFail($id);
+        $course->delete();
+        return response()->json(["message" => " Course is deleted successfully"]);
     }
 }
