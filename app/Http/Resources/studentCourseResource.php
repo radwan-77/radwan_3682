@@ -20,6 +20,7 @@ class studentCourseResource extends JsonResource
             "studentNo" => $this->student->studentNo,
             "courseName" => $this->course->name,
             "mark" => $this->mark,
+            "avg" => $this->avg,
         ];
     }
 }
