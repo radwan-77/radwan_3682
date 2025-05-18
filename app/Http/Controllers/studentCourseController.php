@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\studentCourseResource;
+use App\Models\StudentCourse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Exists;
 
 class studentCourseController extends Controller
 {
@@ -11,15 +14,25 @@ class studentCourseController extends Controller
      */
     public function index()
     {
-        
+        $studentCourse = StudentCourse::all();
+        return studentCourseResource::collection($studentCourse);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage. 
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->d([
+            "studentId" => ["required", "exists:students,id"],
+            "courseId" => ["required", "exists:courses,id"],
+            "mark" => ["required", "numeric"]
+        ]);
+        $studentCourse = StudentCourse::create($validated);
+        return response()->json([
+            "message" => "studentCourse created successfully",
+            "data" => new studentCourseResource($studentCourse)
+        ]);
     }
 
     /**
@@ -27,7 +40,10 @@ class studentCourseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $studentCourse = StudentCourse::findOrFail($id);
+        return new studentCourseResource($studentCourse);
+        // new اترد ب row 
+
     }
 
     /**
@@ -35,7 +51,7 @@ class studentCourseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     /**
@@ -43,6 +59,6 @@ class studentCourseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
     }
 }

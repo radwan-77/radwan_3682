@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\courseController;
 use App\Http\Controllers\studentController;
+use App\Http\Controllers\studentCourseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,5 @@ Route::apiResource("student", studentController::class);
 Route::delete('studentGraduate/{id}', [studentController::class, 'graduate']);
 Route::delete("studentDismisse/{id}", [studentController::class, "dismisse"]);
 Route::delete("studentActivate/{id}", [studentController::class, "reActivate"]);
+//----------------------------route for studentCourse--------------------------
+Route::apiResource("studentCourse", studentCourseController::class);
