@@ -16,7 +16,7 @@ Route::post('login', [authController::class, 'login']);
 Route::post('register', [authController::class, 'register']);
 
 
-Route::middleware("auth:snactum")->group(function () {
+Route::middleware("auth:sanctum")->group(function () {
     //----------------------------route for course--------------------------
     Route::apiResource("course", courseController::class);
     //----------------------------route for student--------------------------
