@@ -13,6 +13,6 @@ Route::apiResource("course", courseController::class);
 //----------------------------route for student--------------------------
 Route::apiResource("student", studentController::class);
 // Custom route to graduate a student (separate from standard destroy)
-Route::delete('studentGraduated/{id}', [studentController::class, 'graduate']);
-Route::delete("studentDismissed/{id}", [studentController::class, "dismissed"]);
-Route::delete("studentActivated/{id}", [studentController::class, "reActivate"]);
+Route::delete('studentGraduate/{id}', [studentController::class, 'graduate']);
+Route::delete("studentDismisse/{id}", [studentController::class, "dismisse"]);
+Route::delete("studentActivate/{id}", [studentController::class, "reActivate"]);

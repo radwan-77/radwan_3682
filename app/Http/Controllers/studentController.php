@@ -76,7 +76,7 @@ class studentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function dismissed(string $id)
+    public function dismisse(string $id)
     {
         $student = Student::findOrFail($id);
         $student->isActive = 0;
