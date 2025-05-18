@@ -23,7 +23,7 @@ class studentCourseController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->d([
+        $validated = $request->validate([
             "studentId" => ["required", "exists:students,id"],
             "courseId" => ["required", "exists:courses,id"],
             "mark" => ["required", "numeric"]
@@ -49,16 +49,10 @@ class studentCourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        
-    }
+    public function update(Request $request, string $id) {}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        
-    }
+    public function destroy(string $id) {}
 }
